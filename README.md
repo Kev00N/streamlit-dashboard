@@ -1,3 +1,5 @@
+app link: https://app-dashboard-5radytsbur9k29ddgytky8.streamlit.app/
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/Kev00N/streamlit-dashboard.git
