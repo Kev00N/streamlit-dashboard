@@ -81,3 +81,81 @@ with st.container():
 
     # Close the container for the employment status section
     st.markdown("</div>", unsafe_allow_html=True)
+    
+st.markdown("<h2 style='text-align: center; margin-top: 40px;'>Employment Status by Education Level in Kenya</h2>", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("<h3 style='text-align: center; color: blue;'>Basic Education</h3>", unsafe_allow_html=True)
+    fig_basic_inactive = px.pie(
+        data.groupby("sex")["Basic_unemployment"].sum().reset_index(),
+        names="sex",
+        values="Basic_unemployment",
+        title="Basic Education - Inactive Population by Sex",
+        hole=0.4
+    )
+    st.plotly_chart(fig_basic_inactive, use_container_width=True)
+
+    filtered_data_basic = data[data['age_group'].isin(["15-24", "25-35"])]
+    fig_basic_unemployed_age_sex = px.bar(
+        filtered_data_basic.groupby(["age_group", "sex"])["Basic_unemployment"].sum().reset_index(),
+        x="age_group",
+        y="Basic_unemployment",
+        color="sex",
+        title="Basic Ed - Unemployed by Age Group and Sex",
+        barmode="stack",
+        category_orders={"age_group": ["15-24", "25-35"]},
+        labels={"age_group": "Age Group", "Basic_unemployment": "Unemployed Population"}
+    )
+    st.plotly_chart(fig_basic_unemployed_age_sex, use_container_width=True)
+
+with col2:
+    st.markdown("<h3 style='text-align: center; color: blue;'>Intermediate Education</h3>", unsafe_allow_html=True)
+    fig_intermediate_inactive = px.pie(
+        data.groupby("sex")["Intermediate_unemployment"].sum().reset_index(),
+        names="sex",
+        values="Intermediate_unemployment",
+        title="Intermediate Ed - Inactive Population by Sex",
+        hole=0.4
+    )
+    st.plotly_chart(fig_intermediate_inactive, use_container_width=True)
+
+    filtered_data_intermediate = data[data['age_group'].isin(["15-24", "25-35"])]
+    fig_intermediate_unemployed_age_sex = px.bar(
+        filtered_data_intermediate.groupby(["age_group", "sex"])["Intermediate_unemployment"].sum().reset_index(),
+        x="age_group",
+        y="Intermediate_unemployment",
+        color="sex",
+        title="Intermediate Ed - Unemployed by Age Group and Sex",
+        barmode="stack",
+        category_orders={"age_group": ["15-24", "25-35"]},
+        labels={"age_group": "Age Group", "Intermediate_unemployment": "Unemployed Population"}
+    )
+    st.plotly_chart(fig_intermediate_unemployed_age_sex, use_container_width=True)
+
+with col3:
+    st.markdown("<h3 style='text-align: center; color: blue;'>Advanced Education</h3>", unsafe_allow_html=True)
+    fig_advanced_inactive = px.pie(
+        data.groupby(["year", "sex"])["Advanced_unemployment"].sum().reset_index(),
+        names="sex",
+        values="Advanced_unemployment",
+        title="Advanced Ed - Inactive Population by Year and Sex",
+        hole=0.4
+    )
+    st.plotly_chart(fig_advanced_inactive, use_container_width=True)
+
+    filtered_data_advanced = data[data['age_group'].isin(["15-24", "25-35"])]
+    fig_advanced_unemployed_age_sex = px.bar(
+        filtered_data_advanced.groupby(["age_group", "sex"])["Advanced_unemployment"].sum().reset_index(),
+        x="age_group",
+        y="Advanced_unemployment",
+        color="sex",
+        title="Advanced Ed - Unemployed by Age Group and Sex",
+        barmode="stack",
+        category_orders={"age_group": ["15-24", "25-35"]},
+        labels={"age_group": "Age Group", "Advanced_unemployment": "Unemployed Population"}
+    )
+    st.plotly_chart(fig_advanced_unemployed_age_sex, use_container_width=True)
+
+
